@@ -1,0 +1,185 @@
+/* Illustrated map. Cream land, ink outlines, yellow for what you can tap. */
+.sydney-map {
+  position: absolute;
+  z-index: 0;
+  top: calc(var(--safe-top) * -1);
+  left: 0;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background: #f3eddd;
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.sydney-map:active {
+  cursor: grabbing;
+}
+
+.map-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+.map-art,
+.map-route {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+.map-pin,
+.map-coin {
+  position: absolute;
+  width: 0;
+  height: 0;
+  transform: scale(var(--inv, 1));
+  transform-origin: 0 0;
+}
+
+.map-pin__dot {
+  position: absolute;
+  left: -9px;
+  top: -9px;
+  width: 18px;
+  height: 18px;
+  border: 3px solid var(--color-ink);
+  border-radius: 50%;
+  background: var(--color-surface);
+  box-shadow: 2px 2px 0 var(--color-ink);
+}
+
+.map-pin--end .map-pin__dot {
+  background: var(--color-yellow);
+}
+
+.map-pin__tag {
+  position: absolute;
+  left: 0;
+  bottom: 16px;
+  transform: translateX(-50%);
+  padding: 3px 9px;
+  border: 2px solid var(--color-ink);
+  border-radius: 999px;
+  background: var(--color-surface);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.map-pin--end .map-pin__tag {
+  background: var(--color-yellow);
+}
+
+.map-coin__button {
+  position: absolute;
+  left: -22px;
+  top: -22px;
+  width: 44px;
+  height: 44px;
+  filter: none;
+}
+
+.map-coin__button img {
+  width: 44px;
+  height: 44px;
+  filter: drop-shadow(2px 3px 0 var(--color-ink));
+  -webkit-user-drag: none;
+}
+
+.map-coin__button::after {
+  inset: -3px;
+}
+
+.map-coin__tag {
+  position: absolute;
+  left: 0;
+  top: 26px;
+  transform: translateX(-50%);
+  padding: 2px 8px;
+  border: 2px solid var(--color-ink);
+  border-radius: 999px;
+  background: var(--color-surface);
+  box-shadow: 2px 2px 0 var(--color-ink);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 14px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.map-coin__button--done {
+  animation: none;
+}
+
+.map-coin__button--done::after {
+  display: none;
+}
+
+.map-coin__button--done img {
+  opacity: 0.5;
+  filter: grayscale(0.7) drop-shadow(2px 3px 0 var(--color-ink));
+}
+
+.map-coin__check {
+  position: absolute;
+  right: -2px;
+  top: -2px;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-ink);
+  border-radius: 50%;
+  background: var(--color-mint);
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.map-zoom {
+  position: absolute;
+  z-index: 4;
+  right: 12px;
+  bottom: calc(var(--bottom-nav-height) + var(--safe-bottom) + 14px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: var(--border-default);
+  border-radius: 16px;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.map-zoom button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-ink);
+  font: inherit;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.map-zoom button + button {
+  border-top: 2px solid var(--color-ink);
+}
+
+.map-zoom button:active {
+  background: var(--color-yellow);
+}

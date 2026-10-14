@@ -1,0 +1,109 @@
+:root {
+  /* Core colours */
+  --color-bg: #fffdf8;
+  --color-surface: #ffffff;
+  --color-ink: #171717;
+  --color-ink-strong: #1e1e1e;
+  --color-muted: #888888;
+
+  --color-yellow: #ffd75a;
+  --color-blue: #73a5ff;
+  --color-orange: #ff7543;
+  --color-pink: #f5afce;
+  --color-mint: #60d6bf;
+
+  --color-soft-mint: #e8f5f0;
+  --color-red: #e5423e;
+  --color-deep-blue: #275dbf;
+
+  /* Semantic colours */
+  --color-background: var(--color-bg);
+  --color-text: var(--color-ink);
+  --color-border: var(--color-ink);
+
+  --color-detour-active: var(--color-yellow);
+  --color-route-default: var(--color-ink);
+  --color-route-explored: var(--color-blue);
+
+  --color-sticker-harbour: var(--color-blue);
+  --color-sticker-heritage: var(--color-orange);
+  --color-sticker-nature: var(--color-mint);
+  --color-sticker-oddity: var(--color-pink);
+
+  /* Typography */
+  --font-display: "Montserrat", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+
+  --text-xs: 11px;
+  --text-sm: 12px;
+  --text-md: 15px;
+  --text-lg: 17px;
+  --text-xl: 21px;
+  --text-2xl: 27px;
+  --text-3xl: 36px;
+  --text-display: 44px;
+
+  --leading-xs: 16px;
+  --leading-sm: 18px;
+  --leading-md: 20px;
+  --leading-lg: 24px;
+  --leading-xl: 28px;
+  --leading-2xl: 32px;
+  --leading-3xl: 40px;
+  --leading-display: 54px;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  /* Border */
+  --border-width: 2px;
+  --border-default: var(--border-width) solid var(--color-border);
+  --border-subtle: 1px solid #e3ded3;
+
+  /* Shadows */
+  --shadow-sm: 2px 2px 0 var(--color-ink);
+  --shadow-md: 3px 3px 0 var(--color-ink);
+  --shadow-lg: 4px 4px 0 var(--color-ink);
+
+  /* Controls */
+  --icon-sm: 18px;
+  --icon-md: 22px;
+  --icon-lg: 24px;
+
+  --control-md: 40px;
+  --control-lg: 52px;
+  --control-xl: 60px;
+
+  --button-height: 52px;
+
+  /* Screen */
+  --screen-width: 375px;
+  --screen-height-reference: 812px;
+  --screen-padding: 20px;
+
+  /* Bottom navigation */
+  --bottom-nav-height: 81px;
+  --bottom-nav-icon-box: 40px;
+
+  /* Stickers */
+  --sticker-sm: 64px;
+  --sticker-md: 80px;
+  --sticker-lg: 120px;
+
+  /* Safe area */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}

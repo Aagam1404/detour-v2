@@ -1,0 +1,148 @@
+/* Step maps for the detour guide */
+.stepmap {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 320 / 260;
+  max-height: 100%;
+  overflow: hidden;
+  border: var(--border-default);
+  border-radius: 22px;
+  background: #f3eddd;
+  box-shadow: var(--shadow-sm);
+}
+
+.stepmap__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.stepmap__chips {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.stepmap__chip,
+.stepmap__goal,
+.stepmap__you-tag {
+  border: 2px solid var(--color-ink);
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.stepmap__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+}
+
+.stepmap__chip--dir {
+  background: var(--color-yellow);
+  font-size: 13px;
+  box-shadow: 2px 2px 0 var(--color-ink);
+}
+
+.stepmap__goal {
+  position: absolute;
+  padding: 3px 10px;
+  background: var(--color-yellow);
+  box-shadow: 2px 2px 0 var(--color-ink);
+}
+
+.stepmap__goal--right {
+  transform: translate(22px, -50%);
+}
+
+.stepmap__goal--left {
+  transform: translate(calc(-100% - 22px), -50%);
+}
+
+.stepmap__goal--top {
+  transform: translate(-50%, calc(-100% - 28px));
+}
+
+.stepmap__you-tag {
+  position: absolute;
+  padding: 1px 8px;
+  transform: translate(20px, -50%);
+  font-size: 11px;
+}
+
+.stepmap__line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: stepmap-draw 0.8s ease-out forwards;
+}
+
+.stepmap__march {
+  animation: stepmap-march 0.9s linear infinite;
+}
+
+.stepmap__arrow {
+  opacity: 0;
+  animation: stepmap-pop 0.3s ease 0.7s forwards;
+}
+
+.stepmap__pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: stepmap-pulse 1.8s ease-out infinite;
+}
+
+@keyframes stepmap-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes stepmap-march {
+  to { stroke-dashoffset: -12; }
+}
+
+@keyframes stepmap-pop {
+  to { opacity: 1; }
+}
+
+@keyframes stepmap-pulse {
+  from { transform: scale(1); opacity: 0.7; }
+  to { transform: scale(2.1); opacity: 0; }
+}
+
+.guide__next {
+  color: var(--color-muted);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepmap__line,
+  .stepmap__march,
+  .stepmap__arrow,
+  .stepmap__pulse {
+    animation: none;
+  }
+
+  .stepmap__line {
+    stroke-dashoffset: 0;
+  }
+
+  .stepmap__arrow {
+    opacity: 1;
+  }
+
+  .stepmap__pulse {
+    opacity: 0;
+  }
+}
