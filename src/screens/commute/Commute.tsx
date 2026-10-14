@@ -3,13 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/Button";
 import { ScreenShell } from "@/components/layout/ScreenShell";
 import {
-  commuteModeLabel,
   commuteModes,
+  DEFAULT_MODE,
   detoursForCommute,
+  extraMinutesFor,
   pinForPlace,
   searchPlaces,
-  type CommuteMode,
 } from "@/data/commute";
+import { ModeTimes } from "@/components/ui/ModeTimes";
 import { usePrototype } from "@/state/PrototypeState";
 
 export function CommuteSetup() {
@@ -17,24 +18,23 @@ export function CommuteSetup() {
   const { commute, setCommute } = usePrototype();
   const [home, setHome] = useState(commute?.home ?? "");
   const [end, setEnd] = useState(commute?.end ?? "");
-  const [mode, setMode] = useState<CommuteMode | "">(commute?.mode ?? "");
   const [finding, setFinding] = useState(false);
   const homeName = home.trim();
   const endName = end.trim();
   const samePlace = homeName.length > 0 && homeName.toLowerCase() === endName.toLowerCase();
-  const ready = Boolean(homeName && endName && mode && !samePlace);
+  const ready = Boolean(homeName && endName && !samePlace);
 
   useEffect(() => {
-    if (!finding || !mode) return;
+    if (!finding) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const timer = window.setTimeout(() => {
-      setCommute({ home: homeName, end: endName, mode });
+      setCommute({ home: homeName, end: endName, mode: commute?.mode ?? DEFAULT_MODE });
       navigate("/commute/detours");
     }, reduced ? 400 : 1600);
     return () => window.clearTimeout(timer);
-  }, [endName, finding, homeName, mode, navigate, setCommute]);
+  }, [commute?.mode, endName, finding, homeName, navigate, setCommute]);
 
-  if (finding && mode) {
+  if (finding) {
     return (
       <ScreenShell>
         <div className="commute-loading" role="status" aria-live="polite">
@@ -46,7 +46,7 @@ export function CommuteSetup() {
           </div>
           <h1>{commute ? "Updating your route" : "Finding detours"}</h1>
           <p>
-            {commuteModeLabel(mode)} from {homeName} to {endName}
+            {homeName} to {endName}
           </p>
         </div>
       </ScreenShell>
@@ -63,7 +63,7 @@ export function CommuteSetup() {
         }}
       >
         <h1>{commute ? "Change your route" : "Your commute"}</h1>
-        <p>{commute ? "Pick new stops or a different way to travel. We’ll line up fresh detours." : "The trip you already make. We’ll find detours on that same ride."}</p>
+        <p>{commute ? "Pick new stops and we’ll line up fresh detours." : "The trip you already make. We’ll find detours along the way. You pick how you travel next."}</p>
         <PlaceSearch
           label="Home"
           placeholder="Search your home"
@@ -79,21 +79,6 @@ export function CommuteSetup() {
           onChange={setEnd}
         />
         {samePlace ? <p className="commute__note">Pick two different stops.</p> : null}
-        <fieldset>
-          <legend>How do you get there?</legend>
-          <div className="commute__choices">
-            {commuteModes.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                className={mode === item.id ? "commute__choice commute__choice--on" : "commute__choice"}
-                onClick={() => setMode(item.id)}
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
-        </fieldset>
         <Button type="submit" disabled={!ready}>
           {commute ? "Update route" : "Find detours"}
         </Button>
@@ -198,7 +183,7 @@ function StreetMap({ pin }: { pin: { x: number; y: number } | null }) {
 
 export function CommuteDetours() {
   const navigate = useNavigate();
-  const { commute, startDetour } = usePrototype();
+  const { commute, setCommute, startDetour } = usePrototype();
   const picks = detoursForCommute(commute);
 
   if (!commute) {
@@ -218,17 +203,27 @@ export function CommuteDetours() {
       <div className="commute commute--list">
         <h1>On this commute</h1>
         <p>
-          {commuteModeLabel(commute.mode)} from {commute.home} to {commute.end}. Same ride, a few
-          things worth noticing.
+          {commute.home} to {commute.end}. Pick how you are getting there to see what each detour adds.
         </p>
+        <div className="commute__choices" role="group" aria-label="How you are getting there">
+          {commuteModes.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              className={commute.mode === item.id ? "commute__choice commute__choice--on" : "commute__choice"}
+              aria-pressed={commute.mode === item.id}
+              onClick={() => setCommute({ ...commute, mode: item.id })}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
         <ul className="commute__list">
           {picks.map((detour) => (
             <li key={detour.id} className={`commute-card commute-card--${commute.mode}`}>
               <div className="commute-card__map" aria-hidden="true">
                 <RouteSketch />
-                <span>
-                  {detour.extraMinutes} min
-                </span>
+                <span>+{extraMinutesFor(detour.extraMinutes, commute.mode)} min</span>
               </div>
               <div className="commute-card__row">
                 <div>
@@ -249,9 +244,11 @@ export function CommuteDetours() {
                   </svg>
                 </button>
               </div>
+              <ModeTimes detour={detour} selected={commute.mode} />
             </li>
           ))}
         </ul>
+        <p className="commute__foot">Times include the walk itself plus getting off and back on your ride.</p>
         <Button onClick={() => navigate("/home")}>See them on the map</Button>
         <button type="button" className="commute__change" onClick={() => navigate("/commute")}>
           Change commute

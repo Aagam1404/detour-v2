@@ -6,7 +6,7 @@ Built with React 19, Vite, TypeScript and React Router. Everything is dummy data
 
 ## How it plays
 
-1. Set your commute (home, destination, how you travel) and see detours along it on an illustrated Sydney map.
+1. Set your commute (home and destination), then pick how you travel (walk, train, bus, e-bike, ferry or metro). Each detour shows how many minutes it adds in each mode.
 2. Accept a detour. Each step shows a small map with a route line, an arrow, a landmark tag, a direction chip and a distance.
 3. Spot the thing you were looking for. The detour's **stamp** is yours straight away (a collectible).
 4. Pick **3 of 9 mystery cards**. Five hide coins and four are bad luck, so it is a bit hard to earn.

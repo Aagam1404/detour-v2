@@ -118,6 +118,7 @@ export function pinForPlace(name: string) {
 }
 
 export const commuteModes = [
+  { id: "walk", label: "Walk" },
   { id: "train", label: "Train" },
   { id: "bus", label: "Bus" },
   { id: "ebike", label: "E-bike" },
@@ -133,13 +134,42 @@ export type Commute = {
   mode: CommuteMode;
 };
 
+/** Used until the person picks how they travel on the detour list. */
+export const DEFAULT_MODE: CommuteMode = "train";
+
 const detoursByMode: Record<CommuteMode, string[]> = {
+  walk: ["benny", "watcher", "lost-tile", "rainy-shortcut", "bin-chicken-royalty", "pocket-garden"],
   train: ["under-the-tracks", "lost-tile", "watcher", "rainy-shortcut"],
   bus: ["watcher", "rainy-shortcut", "tiny-green-door", "bin-chicken-royalty"],
   ebike: ["tiny-green-door", "bin-chicken-royalty", "benny", "pocket-garden"],
   ferry: ["benny", "watcher", "pocket-garden"],
   metro: ["under-the-tracks", "lost-tile", "rainy-shortcut", "watcher"],
 };
+
+/**
+ * Extra minutes a detour adds, by how you travel. Every detour has a base time for the walk itself.
+ * Each mode then adds the cost of getting off and back on: nothing on foot, a minute to park an
+ * e-bike, a few to catch the next bus or train, and longer for a ferry because they run less often.
+ */
+export const modeAddOn: Record<CommuteMode, number> = {
+  walk: 0,
+  ebike: 1,
+  metro: 2,
+  bus: 3,
+  train: 3,
+  ferry: 6,
+};
+
+export function extraMinutesFor(baseMinutes: number, mode: CommuteMode) {
+  return baseMinutes + modeAddOn[mode];
+}
+
+/** Every mode this detour works with, and how long it adds in each. */
+export function modeTimesFor(detour: Detour) {
+  return commuteModes
+    .filter((item) => detoursByMode[item.id].includes(detour.id))
+    .map((item) => ({ mode: item.id, label: item.label, minutes: extraMinutesFor(detour.extraMinutes, item.id) }));
+}
 
 export function commuteModeLabel(mode: CommuteMode) {
   return commuteModes.find((item) => item.id === mode)?.label ?? mode;

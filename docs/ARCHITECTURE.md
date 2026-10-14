@@ -58,7 +58,7 @@ The arrows are the solid shapes from the design file, revealed by a thick line t
 - `journeys.ts` holds the words for every detour: steps, hints, landmark names (`goal`), the "who did you find" question and the reveal.
 - `detours.ts` builds the lighter detour objects the map and lists use.
 - `wallet.ts` holds the reward offers, the mystery card deck (`buildDeck`), levels and stamp lookups.
-- `commute.ts` holds places, travel modes and which detours suit each mode.
+- `commute.ts` holds places, travel modes, which detours suit each mode, and the time each mode adds to a detour (`modeAddOn`, `extraMinutesFor`, `modeTimesFor`).
 - `mapLayout.ts` holds where each detour sits on the map and the suburb labels.
 
 ## The map

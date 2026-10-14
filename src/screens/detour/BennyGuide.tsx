@@ -4,6 +4,8 @@ import { AppScreen } from "@/components/layout/AppScreen";
 import { Button } from "@/components/ui/Button";
 import { CoinIcon } from "@/components/ui/CoinPill";
 import { Chip } from "@/components/ui/Chip";
+import { DEFAULT_MODE, extraMinutesFor } from "@/data/commute";
+import { ModeTimes } from "@/components/ui/ModeTimes";
 import { StepMap } from "@/components/map/StepMap";
 import { getJourney } from "@/data/journeys";
 import { detourStamps } from "@/data/stamps";
@@ -15,6 +17,8 @@ export function BennyAccept() {
   const navigate = useNavigate();
   const detour = useActiveDetour();
   const journey = getJourney(detour.id);
+  const { commute } = usePrototype();
+  const mode = commute?.mode ?? DEFAULT_MODE;
 
   return (
     <AppScreen>
@@ -30,14 +34,15 @@ export function BennyAccept() {
           <p>{journey.teaser}</p>
         </div>
         <div className="accept__chips">
-          <Chip variant="active">+{journey.extraMinutes} min</Chip>
+          <Chip variant="active">+{extraMinutesFor(journey.extraMinutes, mode)} min</Chip>
           <Chip>{journey.distanceMeters} m</Chip>
           <Chip>
             <CoinIcon size={16} />
             &nbsp;pick 3 cards
           </Chip>
         </div>
-        <p className="accept__note">You’ll still make your train.</p>
+        <ModeTimes detour={detour} selected={mode} />
+        <p className="accept__note">Still plenty of time to get there.</p>
         <div className="guide__actions">
           <Button onClick={() => navigate(`/detour/${journey.id}/guide`)}>Accept this detour →</Button>
           <Button variant="ghost" onClick={() => navigate("/home")}>
@@ -51,8 +56,9 @@ export function BennyAccept() {
 
 function DetourBar({ journey, index, total }: { journey: ReturnType<typeof getJourney>; index: number; total: number }) {
   const navigate = useNavigate();
+  const { commute } = usePrototype();
   const [confirm, setConfirm] = useState(false);
-  const left = Math.max(1, Math.round(journey.extraMinutes * (1 - index / total)));
+  const left = Math.max(1, Math.round(extraMinutesFor(journey.extraMinutes, commute?.mode ?? DEFAULT_MODE) * (1 - index / total)));
   return (
     <>
       <div className="detour-bar">

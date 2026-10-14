@@ -32,7 +32,7 @@ export function RouteSheet({ onClose }: RouteSheetProps) {
       <div className="sheet__panel">
         <h2>Your route</h2>
         <p className="route-sheet__trip">
-          <strong>{commute.home}</strong> to <strong>{commute.end}</strong> by {commuteModeLabel(commute.mode).toLowerCase()}
+          <strong>{commute.home}</strong> to <strong>{commute.end}</strong> {commute.mode === "walk" ? "on foot" : `by ${commuteModeLabel(commute.mode).toLowerCase()}`}
         </p>
         <div className="commute__choices" role="group" aria-label="How you travel">
           {commuteModes.map((item) => (
