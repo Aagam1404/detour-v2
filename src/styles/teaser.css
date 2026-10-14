@@ -1,0 +1,29 @@
+/* Locked stamps: show one quarter of the artwork, hide the rest. */
+.sticker__art--teaser {
+  position: relative;
+  border: 2px dashed #cfc9bb;
+  border-radius: 10px;
+  background:
+    repeating-linear-gradient(45deg, rgb(0 0 0 / 0.035) 0 6px, transparent 6px 12px),
+    #f3f0ea;
+  overflow: hidden;
+}
+
+.sticker__art--teaser img {
+  position: absolute;
+  inset: 0;
+  filter: none;
+  /* keep a 50% x 50% window, hide the other three quarters */
+  clip-path: inset(
+    var(--win-y) calc(50% - var(--win-x)) calc(50% - var(--win-y)) var(--win-x)
+  );
+}
+
+.sticker__art--teaser .sticker__mystery {
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  font-size: 22px;
+  color: var(--color-muted);
+  opacity: 0.75;
+}
