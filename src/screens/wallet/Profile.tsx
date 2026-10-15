@@ -7,7 +7,7 @@ import { AppScreen } from "@/components/layout/AppScreen";
 import { Button } from "@/components/ui/Button";
 import { Sticker } from "@/components/ui/Sticker";
 import { detourStamps } from "@/data/stamps";
-import { levelFor, TOTAL_STAMPS } from "@/data/wallet";
+import { levelFor, neighbourhoodsExplored } from "@/data/wallet";
 import { CoinIcon } from "@/components/ui/CoinPill";
 import { usePrototype } from "@/state/PrototypeState";
 import { avatarById, avatars, defaultAvatarId } from "@/data/avatars";
@@ -73,10 +73,8 @@ export function Profile() {
             <span>coins</span>
           </div>
           <div>
-            <strong>
-              {stampIds.length}/{TOTAL_STAMPS}
-            </strong>
-            <span>stamps</span>
+            <strong>{neighbourhoodsExplored(collectedIds)}</strong>
+            <span>neighbourhoods explored</span>
           </div>
           <div>
             <strong>{collectedIds.length}</strong>

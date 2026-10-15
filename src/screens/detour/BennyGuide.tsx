@@ -2,10 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppScreen } from "@/components/layout/AppScreen";
 import { Button } from "@/components/ui/Button";
-import { CoinIcon } from "@/components/ui/CoinPill";
 import { Chip } from "@/components/ui/Chip";
 import { DEFAULT_MODE, extraMinutesFor } from "@/data/commute";
-import { ModeTimes } from "@/components/ui/ModeTimes";
 import { StepMap } from "@/components/map/StepMap";
 import { getJourney } from "@/data/journeys";
 import { detourStamps } from "@/data/stamps";
@@ -36,13 +34,7 @@ export function BennyAccept() {
         <div className="accept__chips">
           <Chip variant="active">+{extraMinutesFor(journey.extraMinutes, mode)} min</Chip>
           <Chip>{journey.distanceMeters} m</Chip>
-          <Chip>
-            <CoinIcon size={16} />
-            &nbsp;pick 3 cards
-          </Chip>
         </div>
-        <ModeTimes detour={detour} selected={mode} />
-        <p className="accept__note">Still plenty of time to get there.</p>
         <div className="guide__actions">
           <Button onClick={() => navigate(`/detour/${journey.id}/guide`)}>Accept this detour →</Button>
           <Button variant="ghost" onClick={() => navigate("/home")}>
@@ -135,8 +127,6 @@ export function BennyGuide() {
   const current = journey.steps[step];
   const quiet = current?.path === "none";
   const lead = quiet ? splitLead(current.body) : null;
-  const upcoming = journey.steps[step + 1];
-  const next = quiet || !upcoming ? null : upcoming.path === "none" ? "Next: stop and look around." : `Next: ${upcoming.heading}`;
 
   const advance = () => {
     if (step < journey.steps.length - 1) setStep((value) => value + 1);
@@ -224,12 +214,10 @@ export function BennyGuide() {
           {current.path === "none" ? <QuietEye /> : <StepMap key={`${journey.id}-${step}`} type={current.path} goal={current.goal} meters={stepMeters(journey.distanceMeters, step)} />}
         </div>
         <div className="guide__copy">
-          <p className="guide__eyebrow">Step {step + 1} of {journey.steps.length}</p>
           <h1>{current.heading}</h1>
           {lead ? <p className="guide__loud">{lead.loud}</p> : <p>{current.body}</p>}
           {lead?.rest ? <p>{lead.rest}</p> : null}
           {current.emphasis ? <p className="guide__emphasis">{current.emphasis}</p> : null}
-          {next ? <p className="guide__next">{next}</p> : null}
         </div>
         <div className="guide__actions">
           {hintOpen && current.hint ? (

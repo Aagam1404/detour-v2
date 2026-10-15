@@ -120,12 +120,6 @@
   to { transform: scale(2.1); opacity: 0; }
 }
 
-.guide__next {
-  color: var(--color-muted);
-  font-size: 14px;
-  font-weight: 700;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .stepmap__line,
   .stepmap__march,

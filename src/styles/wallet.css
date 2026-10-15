@@ -148,7 +148,6 @@
 /* Offers */
 .offers,
 .tickets,
-.history,
 .stamp-strip {
   list-style: none;
   margin: 0;
@@ -175,12 +174,11 @@
   height: 56px;
   border: var(--border-default);
   border-radius: var(--radius-md);
-  font-size: 12px;
-  font-weight: 900;
+  color: var(--color-ink);
 }
 
 .offer__kind--yellow { background: var(--color-yellow); }
-.offer__kind--orange { background: var(--color-orange); color: #fff; }
+.offer__kind--orange { background: var(--color-orange); }
 .offer__kind--pink { background: var(--color-pink); }
 .offer__kind--blue { background: var(--color-blue); }
 .offer__kind--mint { background: var(--color-mint); }
@@ -194,7 +192,7 @@
 
 .offer__text p {
   margin: 0;
-  color: var(--color-muted);
+  color: var(--color-ink);
   font-size: 13px;
   line-height: 18px;
 }
@@ -256,7 +254,7 @@
   border: var(--border-default);
   border-radius: var(--radius-lg);
   background: var(--color-mint);
-  text-align: center;
+  text-align: left;
 }
 
 .ticket h2 {
@@ -290,8 +288,7 @@
   letter-spacing: 0.12em;
 }
 
-.tickets li,
-.history li {
+.tickets li {
   display: flex;
   justify-content: space-between;
   gap: 12px;
@@ -302,10 +299,6 @@
 
 .tickets strong {
   letter-spacing: 0.08em;
-}
-
-.history li span {
-  color: #424242;
 }
 
 /* Stamp strip */
@@ -470,13 +463,6 @@
   gap: 8px;
 }
 
-.accept__note {
-  margin: 0;
-  color: var(--color-muted);
-  font-size: 14px;
-  font-weight: 700;
-}
-
 .guide__options {
   display: flex;
   flex-direction: column;
@@ -543,7 +529,7 @@
 }
 
 .reveal__art {
-  text-align: center;
+  text-align: left;
 }
 
 .reveal__art .guide__stamp {
@@ -717,14 +703,6 @@
   border-style: dashed;
 }
 
-.prizes__hint {
-  margin: 0;
-  color: var(--color-muted);
-  font-size: 14px;
-  font-weight: 700;
-  text-align: center;
-}
-
 .prizes__summary {
   display: flex;
   flex-direction: column;
@@ -777,14 +755,14 @@
 
 .stamps .sticker--locked,
 .profile .sticker--locked {
-  border-style: dashed;
-  border-color: #cfc9bb;
+  border-color: var(--color-ink);
+  background: var(--color-surface);
 }
 
 .profile__coins {
   display: flex !important;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 6px;
 }
 

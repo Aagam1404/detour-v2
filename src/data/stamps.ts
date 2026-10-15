@@ -22,33 +22,3 @@ export const detourStamps: Record<string, string> = {
   rainy: rainyShortcut,
   "bin-chicken": binChicken,
 };
-
-/**
- * Locked stamps show only a quarter of the artwork as a teaser.
- * x / y are the top-left of the visible window, in percent of the stamp.
- * The window is always 50% x 50%, so exactly one quarter shows.
- */
-export type StampWindow = { x: number; y: number };
-
-const windowByStamp: Record<string, StampWindow> = {
-  benny: { x: 0, y: 30 },
-  "bin-chicken-royalty": { x: 28, y: 24 },
-  "lost-tile": { x: 24, y: 24 },
-  "pocket-garden": { x: 0, y: 30 },
-  "rainy-shortcut": { x: 20, y: 32 },
-  "tiny-green-door": { x: 22, y: 30 },
-  "under-the-tracks": { x: 0, y: 30 },
-  watcher: { x: 22, y: 30 },
-};
-
-const windowAliases: Record<string, string> = {
-  tracks: "under-the-tracks",
-  tile: "lost-tile",
-  door: "tiny-green-door",
-  rainy: "rainy-shortcut",
-  "bin-chicken": "bin-chicken-royalty",
-};
-
-export function stampWindow(id: string): StampWindow {
-  return windowByStamp[windowAliases[id] ?? id] ?? { x: 0, y: 25 };
-}

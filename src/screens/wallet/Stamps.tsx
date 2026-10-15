@@ -27,7 +27,7 @@ export function Stamps() {
   return (
     <AppScreen nav>
       <div className="stamps">
-        <Header title="Stamps" subtitle={`${stampIds.length} of ${TOTAL_STAMPS} found. Each hidden one shows a peek of what you will get.`} />
+        <Header title="Stamps" subtitle={`${stampIds.length} of ${TOTAL_STAMPS} found.`} />
         <div className="stamps__chips" role="group" aria-label="Filter stamps">
           {filters.map((item) => (
             <button

@@ -120,9 +120,7 @@ export function Prizes() {
               Back to my route
             </Button>
           </section>
-        ) : (
-          <p className="prizes__hint">Tap a card to flip it. Not every card pays out.</p>
-        )}
+        ) : null}
       </div>
     </AppScreen>
   );

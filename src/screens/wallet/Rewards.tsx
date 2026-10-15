@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Coffee, CreditCard, Gift } from "lucide-react";
 import { AppScreen } from "@/components/layout/AppScreen";
 import { Button } from "@/components/ui/Button";
 import { CoinIcon } from "@/components/ui/CoinPill";
@@ -8,7 +9,7 @@ import { detourStamps } from "@/data/stamps";
 import { offers, stampMeta, TOTAL_STAMPS, type Offer } from "@/data/wallet";
 import { usePrototype } from "@/state/PrototypeState";
 
-const kindLabel = { opal: "Opal", coffee: "Coffee", gift: "Gift" } as const;
+const kindIcon = { opal: CreditCard, coffee: Coffee, gift: Gift } as const;
 
 export function Rewards() {
   const { coins, stampIds, history, tickets, redeem } = usePrototype();
@@ -58,9 +59,12 @@ export function Rewards() {
             {offers.map((offer) => {
               const canAfford = coins >= offer.cost;
               const short = offer.cost - coins;
+              const Icon = kindIcon[offer.kind];
               return (
                 <li key={offer.id} className="offer">
-                  <span className={`offer__kind offer__kind--${offer.tone}`}>{kindLabel[offer.kind]}</span>
+                  <span className={`offer__kind offer__kind--${offer.tone}`} aria-hidden="true">
+                    <Icon size={26} strokeWidth={2.25} />
+                  </span>
                   <div className="offer__text">
                     <h3>{offer.title}</h3>
                     <p>{offer.place}</p>
@@ -120,19 +124,6 @@ export function Rewards() {
             )}
           </ul>
         </section>
-
-        {history.length > 0 ? (
-          <section className="rewards__section" aria-label="Recent">
-            <h2 className="rewards__h">Recent</h2>
-            <ul className="history">
-              {history.slice(0, 5).map((item) => (
-                <li key={item.id}>
-                  <span>{item.label}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ) : null}
       </div>
 
       {confirming ? (

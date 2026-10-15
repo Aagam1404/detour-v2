@@ -26,6 +26,29 @@ export const offers: Offer[] = [
 
 export const TOTAL_STAMPS = toCollect.length;
 
+/** Stamp places grouped into the neighbourhoods people would name. */
+const neighbourhoodByPlace: Record<string, string> = {
+  "Circular Quay": "Circular Quay",
+  "The Rocks": "The Rocks",
+  "Surry Hills": "Surry Hills",
+  Redfern: "Redfern",
+  "George St": "Sydney CBD",
+  "Pitt St": "Sydney CBD",
+  QVB: "Sydney CBD",
+  "Hyde Park": "Sydney CBD",
+};
+
+/** How many different neighbourhoods the finished detours cover. */
+export function neighbourhoodsExplored(detourIds: string[]) {
+  const found = new Set<string>();
+  detourIds.forEach((id) => {
+    const place = toCollect.find((stamp) => stamp.id === id)?.place;
+    const area = place ? neighbourhoodByPlace[place] : undefined;
+    if (area) found.add(area);
+  });
+  return found.size;
+}
+
 export function stampMeta(id: string) {
   return toCollect.find((stamp) => stamp.id === id);
 }

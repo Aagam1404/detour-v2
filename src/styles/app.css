@@ -525,7 +525,7 @@
 .detail__copy {
   position: relative;
   z-index: 1;
-  text-align: center;
+  text-align: left;
 }
 
 .detail__copy h1 {
@@ -662,7 +662,7 @@
   margin: 0;
   padding: 28px 12px 10px;
   color: white;
-  text-align: center;
+  text-align: left;
   font-weight: 700;
   background: linear-gradient(180deg, transparent, rgb(0 0 0 / 55%));
 }
@@ -685,7 +685,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
+  text-align: left;
   justify-content: center;
   overflow-y: auto;
 }
@@ -721,7 +721,7 @@
   display: grid;
   place-items: center;
   align-content: center;
-  text-align: center;
+  text-align: left;
 }
 
 .book__stats strong {
@@ -854,7 +854,7 @@
 .profile__identity {
   background: var(--color-ink);
   color: #fff;
-  text-align: center;
+  text-align: left;
   padding: 18px 20px 16px;
 }
 
@@ -875,9 +875,10 @@
 
 .profile__stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  text-align: center;
-  padding: 16px 12px 8px;
+  grid-template-columns: 0.8fr 1.5fr 0.9fr;
+  gap: 12px;
+  text-align: left;
+  padding: 16px 20px 8px;
   background: var(--color-surface);
 }
 
@@ -888,6 +889,8 @@
 }
 
 .profile__stats span {
+  display: block;
+  line-height: 18px;
   color: var(--color-muted);
   font-size: 13px;
 }
@@ -1090,7 +1093,7 @@
 .book__note,
 .return__note {
   margin: var(--space-5) 0 0;
-  text-align: center;
+  text-align: left;
   font-weight: 700;
 }
 
@@ -1116,12 +1119,11 @@
 .sticker--pale { background: var(--color-soft-mint); }
 .sticker--pink { background: var(--color-pink); }
 .sticker--orange { background: var(--color-orange); }
-.sticker--locked { background: #f3f0ea; color: var(--color-muted); }
+.sticker--locked { background: #f3f0ea; }
 
 .sticker__art {
   width: 104px;
   height: 104px;
-  margin-bottom: 10px;
   display: grid;
   place-items: center;
   color: var(--color-ink);
@@ -1135,28 +1137,14 @@
   filter: drop-shadow(0 2px 3px rgb(0 0 0 / 0.18));
 }
 
+.sticker--locked .sticker__art img {
+  filter: grayscale(1) drop-shadow(0 2px 3px rgb(0 0 0 / 0.18));
+}
+
 .sticker__mystery {
   font-family: var(--font-display);
   font-size: 28px;
   font-weight: 800;
-}
-
-.sticker figcaption {
-  display: grid;
-  gap: 0;
-}
-
-.sticker__name {
-  font-size: 14px;
-  font-weight: 800;
-  line-height: 18px;
-}
-
-.sticker__place {
-  font-size: 12px;
-  line-height: 16px;
-  font-weight: 500;
-  color: var(--color-ink);
 }
 
 .sticker--lg .sticker__art {
@@ -1207,7 +1195,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
+  text-align: left;
   padding: 36px 22px 22px;
   border: var(--border-default);
   border-radius: 28px;
@@ -1380,7 +1368,7 @@
 
 .auth__switch {
   margin: 4px 0 0;
-  text-align: center;
+  text-align: left;
   font-size: 14px;
 }
 
@@ -1582,7 +1570,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  text-align: center;
+  text-align: left;
 }
 
 .commute-loading h1 {
@@ -1900,14 +1888,14 @@
   font-weight: 900;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  text-align: center;
+  text-align: left;
 }
 
 .guide__place,
 .guide__collected,
 .guide__after {
   margin: 4px 0 0;
-  text-align: center;
+  text-align: left;
 }
 
 .guide__collected {
